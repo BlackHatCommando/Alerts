@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Medium Alerts</title>
+    <link rel="stylesheet" href="../../index.css">
+</head>
+<body>
+    
+  <a href="../../index.html" class="go-home">Go Back to Home</a>
+      <div class="alert-box">
+        <div class="alert-content">
+          <span class="serial-no">1</span>
+          <span class="alert-title">Firewall Alert: Port Scanning</span>
+          <span class="alert-severity medium">Medium</span>
+          <a href="#" class="view-alert">View Alert</a>
+        </div>
+      </div>
+      
+    <script>
+    document.addEventListener('contextmenu', function(event) {
+        event.preventDefault(); // Prevent right-click context menu  
+        alert("Inspecting the page is not allowed.");   
+      }); 
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.shiftKey && event.key === 'i') {
+          event.preventDefault(); // Prevent Ctrl+Shift+I keyboard shortcut
+          alert("Inspecting the page is not allowed."); 
+        }
+      });
+    </script>
+</body>
+</html>
