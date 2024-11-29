@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alert</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <nav class="navbar">
+    <!-- Left corner (Logo) -->
+    <a href="#" ><img class="logo" src="main logo-modified.png" alt="logo"></a>
+
+    <!-- Center (Home link) -->
+    <div class="center">
+      <a href="index.html">Home</a>
+      <a href="WindowsAlerts.html">WindowsAlerts</a>
+      <a href="FirewallAlerts.html">FirewallAlerts</a>
+      <a href="AzureAlerts.html">AzureAlerts</a>
+    </div>
+
+    <!-- Right corner (Join Telegram Group) -->
+    <div class="right">
+      <a href="https://t.me/blackhatcommando" target="_blank">Join Telegram Group</a>
+    </div>
+  </nav>
+  <div>
+    <br>
+    <br>
+    <br>
+    <h1 style="text-align: center;">Linux Alerts</h1>
+  </div>
+    
+  <!-- Main Alert Box 1 -->
+  <div class="alert-box" data-id="alert31">
+    <div class="alert-header">
+      <h3 class="alert-title">Failed Login Attempted on Linux server.</h3>
+      <br>
+      <p class="alert-category">Category: Linux</p>
+    </div>
+    <p class="alert-description">This alert Detect Failed Login Attempts on Linux Machine</p>
+    <span class="alert-severity critical">Critical</span>
+    <button class="view-button" onclick="toggleVisibility('alert-rule31')">View Rule</button>
+    <button class="view-button" onclick="toggleVisibility('alert-data31')">View Alert Data</button>
+    
+    
+    <div id="alert-rule31" class="hidden-content">
+      <h4>Alert Rule</h4>
+      <br>
+      title: Failed Login Attempted on Linux server<br>
+      author: Admin<br>
+      description: Detect Failed Login Attempts on Linux Machine<br>
+      detection:<br>
+        condition: ((selection1 and selection2) and selection3)<br>
+        selection1:<br>
+          event.action|contains: PAM:authentication<br>
+        selection2:<br>
+          event.category|contains: USER_AUTH<br>
+        selection3:<br>
+          event.outcome: failed<br>
+      level: critical<br>
+      logsource:<br>
+        product: linux<br>
+        service: security<br>
+        logtype: linux<br>
+
+      
+    </div>
+
+    <div id="alert-data31" class="hidden-content">
+      <h4>Alert Data</h4>
+      <br>
+      event.action : PAM:authentication<br>
+      event.category : USER_AUTH<br>
+      event.host : BHC.753159<br>
+      event.module : syslog<br>
+      event.outcome : failed<br>
+      host.ip : 10.100.60.231<br>
+      host.name : BHC.753159<br>
+      log.type : audit<br>
+      observer.type : linux<br>
+      observer.vendor : linux<br>
+      process.executable : /usr/bin/sudo<br>
+      process.name : tag_audit_log<br>
+      process.pid  3120497<br>
+      server.address : ?<br>
+      user.name : Rajaram<br>
+      
+    </div>
+    
+    
+
+    <button class="dismiss-button" onclick="showCommentBox('alert31')">Dismiss Alert</button>
+
+    <div id="comment-box-alert31" class="hidden-content">
+      <h4>Provide a Dismiss Comment</h4>
+      <textarea id="comment-alert31" placeholder="Type your comment here..." rows="4" cols="50"></textarea><br>
+      <button onclick="submitComment('alert31')">Dismiss Alert</button>
+    </div>
+
+    <div id="comment-display-alert31" class="hidden-content">
+      <h4>Dismissed Reason:</h4>
+      <p id="user-comment-alert31"></p>
+    </div>
+  </div>
+  <!-- Main Alert Box 2 -->
+  <div class="alert-box" data-id="alert32">
+    <div class="alert-header">
+      <h3 class="alert-title">A User deleted a file using remove command.</h3>
+      <br>
+      <p class="alert-category">Category: Linux</p>
+    </div>
+    <p class="alert-description">This alert Detects the use of the rm command to remove files on a Linux system.</p>
+    <span class="alert-severity high">High</span>
+    <button class="view-button" onclick="toggleVisibility('alert-rule32')">View Rule</button>
+    <button class="view-button" onclick="toggleVisibility('alert-data32')">View Alert Data</button>
+    
+    
+    <div id="alert-rule32" class="hidden-content">
+      <h4>Alert Rule</h4>
+      <br>
+      title: A User deleted a file using remove command<br>
+      author: Admin<br>
+      description: Detects the use of the rm command to remove files on a Linux system<br>
+      detection:<br>
+        condition: selection1 and selection2<br>
+        selection1:<br>
+          event.category|contains: fim<br>
+        selection2:<br>
+          process.name|contains: rm<br>
+      level: High<br>
+      logsource:<br>
+        category: linux<br>
+        product: linux<br>
+        logtype: linux<br>
+
+    </div>
+
+    <div id="alert-data32" class="hidden-content">
+      <h4>Alert Data</h4>
+      <br>
+      event.action : process_started<br>
+      event.category : fim<br>
+      event.host : BHC-753951<br>
+      event.module : syslog<br>
+      event.type : start<br>
+      host.architecture : x86_64<br>
+      host.hostname : BHC-753951<br>
+      host.ip : 10.100.9.75<br>
+      host.name : BHC-753951<br>
+      log.type : audit<br>
+      observer.type : linux<br>
+      observer.vendor : linux<br>
+      process.executable : /usr/libexec/platform-python3.6<br>
+      process.name : rm<br>
+      process.pid  : 3601464<br>
+      process.working_directory : /<br>
+      user.name : root<br>
+
+      
+    </div>
+    <button class="dismiss-button" onclick="showCommentBox('alert32')">Dismiss Alert</button>
+
+    <div id="comment-box-alert32" class="hidden-content">
+      <h4>Provide a Dismiss Comment</h4>
+      <textarea id="comment-alert32" placeholder="Type your comment here..." rows="4" cols="50"></textarea><br>
+      <button onclick="submitComment('alert32')">Dismiss Alert</button>
+    </div>
+
+    <div id="comment-display-alert32" class="hidden-content">
+      <h4>Dismissed Reason:</h4>
+      <p id="user-comment-alert32"></p>
+    </div>
+  </div>
+
+  <!-- Main Alert Box 3 -->
+  <div class="alert-box" data-id="alert33">
+    <div class="alert-header">
+      <h3 class="alert-title">Linux Server Shutdown/Reboot happened.</h3>
+      <br>
+      <p class="alert-category">Category: Linux</p>
+    </div>
+    <p class="alert-description">This alert indicates that the Adversaries may shutdown/reboot systems to interrupt access to, or aid in the destruction of, those systems.</p>
+    <span class="alert-severity medium">Medium</span>
+    <button class="view-button" onclick="toggleVisibility('alert-rule33')">View Rule</button>
+    <button class="view-button" onclick="toggleVisibility('alert-data33')">View Alert Data</button>
+    
+    
+    
+    <div id="alert-rule33" class="hidden-content">
+      <h4>Alert Rule</h4>
+      <br>
+      title: Linux Server Shutdown/Reboot happened<br>
+      author: Admin<br>
+      description: Adversaries may shutdown/reboot systems to interrupt access to, or aid in the destruction of, those systems.<br>
+      detection:<br>
+        condition: selection<br>
+        selection:<br>
+          event.category|contains:<br>
+            - SYSTEM_BOOT<br>
+            - SYSTEM_SHUTDOWN<br>
+      logsource:<br>
+        product: linux<br>
+        service: auditd<br>
+        logtype: Linux<br>
+      level: Medium<br>
+     
+      
+    </div>
+
+    <div id="alert-data33" class="hidden-content">
+      <h4>Alert Data</h4>
+      <br>
+      event.action : success<br>
+      event.category : SYSTEM_SHUTDOWN<br>
+      event.host : BHC753951<br>
+      event.module : syslog<br>
+      host.ip : ?<br>
+      host.name : BHC753951<br>
+      log.type : audit<br>
+      observer.type : linux<br>
+      observer.vendor : linux<br>
+      process.executable : /usr/lib/systemd/systemd-update-utmp<br>
+      process.name : systemd-update-utmp<br>
+      process.pid : 1194015<br>
+      user.id : 0<br>
+      
+      
+    </div>
+    <button class="dismiss-button" onclick="showCommentBox('alert33')">Dismiss Alert</button>
+
+    <div id="comment-box-alert33" class="hidden-content">
+      <h4>Provide a Dismiss Comment</h4>
+      <textarea id="comment-alert33" placeholder="Type your comment here..." rows="4" cols="50"></textarea><br>
+      <button onclick="submitComment('alert33')">Dismiss Alert</button>
+    </div>
+
+    <div id="comment-display-alert33" class="hidden-content">
+      <h4>Dismissed Reason:</h4>
+      <p id="user-comment-alert33"></p>
+    </div>
+  </div>
+ 
+  <script src="linux.js"></script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alert</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <nav class="navbar">
+    <!-- Left corner (Logo) -->
+    <a href="#" ><img class="logo" src="main logo-modified.png" alt="logo"></a>
+
+    <!-- Center (Home link) -->
+    <div class="center">
+      <a href="index.html">Home</a>
+      <a href="WindowsAlerts.html">WindowsAlerts</a>
+      <a href="AzureAlerts.html">AzureAlerts</a>
+      <a href="LinuxAlerts.html">LinuxAlerts</a>
+    </div>
+
+    <!-- Right corner (Join Telegram Group) -->
+    <div class="right">
+      <a href="https://t.me/blackhatcommando" target="_blank">Join Telegram Group</a>
+    </div>
+  </nav>
+  <div>
+    <br>
+    <br>
+    <br>
+    <h1 style="text-align: center;">Firewall Alerts</h1>
+  </div>
+    
+  <!-- Main Alert Box 1 -->
+  <div class="alert-box" data-id="alert11">
+    <div class="alert-header">
+      <h3 class="alert-title">Someone is Doing Horizontal Port scan on your network.</h3>
+      <br>
+      <p class="alert-category">Category: Network</p>
+    </div>
+    <p class="alert-description">This alert Detects when adversaries try to stop system services or processes by deleting their respective scheduled tasks in order to conduct data destructive activities</p>
+    <span class="alert-severity critical">Critical</span>
+    <button class="view-button" onclick="toggleVisibility('alert-rule11')">View Rule</button>
+    <button class="view-button" onclick="toggleVisibility('alert-data11')">View Alert Data</button>
+    
+    
+    <div id="alert-rule11" class="hidden-content">
+      <h4>Alert Rule</h4>
+      <br>
+      title: Someone is Doing Horizontal Port scan on your network.<br>
+      author: Admin<br>
+      description:This alert indicates Network and port scanning from external IP addresses. It is described as scan against a group of IP's for a single port.<br>
+      detection:<br>
+        condition: selection | count distinct(destination.ip) by source.ip > 20<br>
+        selection:<br>
+        - source.locality: public<br>
+      level: Critical<br>
+      logsource:<br>
+        category: firewall<br>
+        product: ngfw<br>
+        service: traffic<br>
+        logtype: ngfw<br>
+      timespan: 01m<br>
+      <br>
+      
+      <strong>Splunk Query to check Logs:</strong><br><br>
+      source="your_index_or_data_source" <br>
+      source.locality="public" <br>
+      | stats dc(destination.ip) AS distinct_destinations BY source.ip <br>
+      | where distinct_destinations > 20<br>
+
+    </div>
+
+    <div id="alert-data11" class="hidden-content">
+      <h4>Alert Data</h4>
+      <br>
+      destination.as.organization.name : BlackHatCommando<br>
+      destination.geo.country code : IND<br>
+      destination.geo.country name : India<br>
+      destination.geo.location.lat : 37.751<br>
+      destination.geo.location.lon : -97.822<br>
+      destination.ip : 216.9.115.127<br>
+      destination.locality : public<br>
+      destination.port : 22<br>
+      event.action : Accept<br>
+      event.category : network<br>
+      event.type : connection<br>
+      host.hostname : Troy-CP-MGR..yf7mo6<br>
+      host.ip : 10.113.240.5<br>
+      host.name : Troy-DC-Logger<br>
+      log.type : checkpoint<br>
+      network.direction : inbound<br>
+      network.protocol : ssh_version_2<br>
+      network.transport : tcp<br>
+      observer.type : ngfw<br>
+      observer.vendor : checkpoint<br>
+      source.as.organization.name : DIGITALOCEAN-ASN<br>
+      source.geo.city_name : Toronto<br>
+      source.geo.country_code : CA<br>
+      source.geo.country_name : Canada<br>
+      source.geo.location.lat : 43.6547<br>
+      source.geo.location.lon : -79.3623<br>
+      source.ip : 165.22.227.46<br>
+      source.locality : public<br>
+      source.port : 41956<br>
+      threatintel.lookup : neutral<br>
+    </div>
+    
+    
+
+    <button class="dismiss-button" onclick="showCommentBox('alert11')">Dismiss Alert</button>
+
+    <div id="comment-box-alert11" class="hidden-content">
+      <h4>Provide a Dismiss Comment</h4>
+      <textarea id="comment-alert11" placeholder="Type your comment here..." rows="4" cols="50"></textarea><br>
+      <button onclick="submitComment('alert11')">Dismiss Alert</button>
+    </div>
+
+    <div id="comment-display-alert11" class="hidden-content">
+      <h4>Dismissed Reason:</h4>
+      <p id="user-comment-alert11"></p>
+    </div>
+  </div>
+  <!-- Main Alert Box 2 -->
+  <div class="alert-box" data-id="alert12">
+    <div class="alert-header">
+      <h3 class="alert-title">A User is connected to Port 8000 to the Internet.</h3>
+      <br>
+      <p class="alert-category">Category: Network Anomaly</p>
+    </div>
+    <p class="alert-description">This alert indicates that someone is connected to 8000 to the external server.</p>
+    <span class="alert-severity high">High</span>
+    <button class="view-button" onclick="toggleVisibility('alert-rule12')">View Rule</button>
+    <button class="view-button" onclick="toggleVisibility('alert-data12')">View Alert Data</button>
+    
+    
+    <div id="alert-rule12" class="hidden-content">
+      <h4>Alert Rule</h4>
+      <br>
+      title: A User is connected to Port 8000 to the Internet.<br>
+      author: Admin<br>
+      description: Observed someone is connected to 8000 to the external server.<br>
+      detection:<br>
+        condition: selection and not filter<br>
+        filter:<br>
+          destination.ip:<br>
+          - 10.0.0.0/8<br>
+          - 172.16.0.0/12<br>
+          - 192.168.0.0/16<br>
+        selection:<br>
+          destination.port:<br>
+          - 8000<br>
+      level: high<br>
+      logsource:<br>
+        category: NBAD<br>
+        logtype: nbad<br>
+
+    </div>
+
+    <div id="alert-data12" class="hidden-content">
+      <h4>Alert Data</h4>
+      <br>
+      destination.address : 104.47.11.113<br>
+      destination.as.organization.name : MICROSOFT-CORP-MSN-AS-BLOCK<br>
+      destination.bytes : 0<br>
+      destination.geo.city name : Dublin<br>
+      destination.geo.continent code : EU<br>
+      destination.geo.country name : Ireland<br>
+      destination.geo.location.lat : 53.3379<br>
+      destination.geo.location.lon : -6.2591<br>
+      destination.ip	: 104.47.11.113<br>
+      destination.locality : public<br>
+      destination.port : 8000<br>
+      event.category : network<br>
+      event.dataset : naf<br>
+      event.duration : 506877000<br>
+      host.name : BHC-India<br>
+      log.type : conn<br>
+      network.bytes : 374<br>
+      network.connection.id : 10.96.31.39:104.47.11.113:25:8000<br>
+      network.connection.state_description : Source sent a SYN followed by a FIN, never saw a SYN ACK from the destination (ie: connection was half open)<br>
+      network.direction : outbound<br>
+      network.missed bytes : 0<br>
+      network.transport : tcp<br>
+      observer.type : nbad<br>
+      source.bytes : 374<br>
+      source.ip : 10.96.31.39<br>
+      source.locality : private<br>
+      source.port : 25<br>
+      threatintel.lookup : neutral<br>
+
+    </div>
+    <button class="dismiss-button" onclick="showCommentBox('alert12')">Dismiss Alert</button>
+
+    <div id="comment-box-alert12" class="hidden-content">
+      <h4>Provide a Dismiss Comment</h4>
+      <textarea id="comment-alert12" placeholder="Type your comment here..." rows="4" cols="50"></textarea><br>
+      <button onclick="submitComment('alert12')">Dismiss Alert</button>
+    </div>
+
+    <div id="comment-display-alert12" class="hidden-content">
+      <h4>Dismissed Reason:</h4>
+      <p id="user-comment-alert12"></p>
+    </div>
+  </div>
+
+  <!-- Main Alert Box 3 -->
+  <div class="alert-box" data-id="alert13">
+    <div class="alert-header">
+      <h3 class="alert-title">A Host is connecting with High-risk applications.</h3>
+      <br>
+      <p class="alert-category">Category: Malicious Appliction</p>
+    </div>
+    <p class="alert-description">This alert indicates that the firewall device has identified the use of potentially high-risk applications within the enterprise environment, such as Torrent Clients (P2P). Please review the logs attached to this alert for further details.</p>
+    <span class="alert-severity medium">Medium</span>
+    <button class="view-button" onclick="toggleVisibility('alert-rule13')">View Rule</button>
+    <button class="view-button" onclick="toggleVisibility('alert-data13')">View Alert Data</button>
+    
+    
+    
+    <div id="alert-rule13" class="hidden-content">
+      <h4>Alert Rule</h4>
+      <br>
+      title: A Host is connecting with High-risk applications<br>
+      author: Admin<br>
+      description: The firewall device has identified the use of potentially high-risk applications within the enterprise environment, such as Torrent Clients (P2P). Please review the logs attached to this alert for further details.<br>
+      detection:<br>
+        condition: selection and not filter<br>
+        filter:<br>
+          network.application|contains:<br>
+          - HTTP_and_HTTPS_proxy<br>
+        selection:<br>
+          network.application|contains:<br>
+          - Torrent<br>
+          - Proxy<br>
+          - EXE File Download<br>
+          - eMule P2P<br>
+          - Ares P2P<br>
+      level: high<br>
+      logsource:<br>
+        category: ngfw<br>
+        product: sophos<br>
+        logtype: ngfw<br>
+
+      
+    </div>
+
+    <div id="alert-data13" class="hidden-content">
+      <h4>Alert Data</h4>
+      <br>
+      destination.bytes : 264<br>
+      destination.ip : 104.47.11.113<br>
+      destination.locality : public<br>
+      destination.packets : 3<br>
+      destination.port : 80<br>
+      event.action : allow<br>
+      event.category : TRAFFIC<br>
+      event.kind : alert<br>
+      event.module : paloalto<br>
+      event.provider : paloalto<br>
+      host.ip : 10.96.22.251<br>
+      host.name : BHC-1234<br>
+      log.type : paloalto<br>
+      network.application : bittorrent<br>
+      network.bytes : 264<br>
+      network.packets : 3<br>
+      network.protocol : kerberos<br>
+      network.transport : udp<br>
+      observer.type : ngfw<br>
+      observer.vendor : paloalto<br>
+      source.bytes : 0<br>
+      source.ip : 10.94.12.30<br>
+      source.locality : private<br>
+      source.nat.ip : 0.0.0.0<br>
+      source.nat.port : 0<br>
+      source.packets : 0<br>
+      source.port : 53399
+
+      
+    </div>
+    <button class="dismiss-button" onclick="showCommentBox('alert13')">Dismiss Alert</button>
+
+    <div id="comment-box-alert13" class="hidden-content">
+      <h4>Provide a Dismiss Comment</h4>
+      <textarea id="comment-alert13" placeholder="Type your comment here..." rows="4" cols="50"></textarea><br>
+      <button onclick="submitComment('alert13')">Dismiss Alert</button>
+    </div>
+
+    <div id="comment-display-alert13" class="hidden-content">
+      <h4>Dismissed Reason:</h4>
+      <p id="user-comment-alert13"></p>
+    </div>
+  </div>
+ 
+  <script src="firewall.js"></script>
+</body>
+</html>
